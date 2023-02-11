@@ -1,0 +1,32 @@
+# given the importance of matrix multiplication in ML, I thought it'd be a good idea to code it from scratch to get a thorough understanding of how it works.
+# I didn't have much experience with numpy arrays before this, so the trickiest part was making sure the for loops counted and multiplied the right values
+
+# overall these functions are analogous to using the NumPy dot-product function (np.dot) and the PyTorch matrix multiplication function (torch.matmul)
+
+# this function calculates the scalar value for each row within matrix 1.
+def row_calc(row,column):
+  result = 0
+  for i in range(row.shape[0]):
+    result += row[i] * column[i]
+  return result
+
+# this function calculates the matrix one column at a time by iterating through the rows in matrix 1 and joining the values with np.vstack
+# it then joins the columns together to form a matrix using the np.hstack function
+def matrix_multiplier(m1, m2):
+  
+  # this checks whether the # columns in matrix 1 is equal to the number of rows in matrix 2 (which is a requirement for matrix multiplication)
+  if ((m1.shape)[1]) == ((m2.shape)[0]):
+    columns = []
+    for c in range(((m2.shape)[1])): # this is the number of columns in Matrix 2
+      column = m2[:,c]
+      rows = []
+      for n in range(((m1.shape)[0])): # this is the number of rows in Matrix 1
+        row = m1[n,:]
+        rows.append(np.array([row_calc(row,column)]))
+        result_array = np.array([result])
+      vmatrix = np.vstack(rows)
+      columns.append(vmatrix)
+    matrix = np.hstack(columns)
+    return matrix
+  else:
+    print("Matrices are not compatible for multiplication in the provided order")
